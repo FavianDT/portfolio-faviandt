@@ -6,7 +6,7 @@ export const PERSONAL_INFO = {
   roles: ["Lulusan Teknik Informatika", "Web Developer", "Tech Enthusiast"], // Teks bergantian di Hero
   description: "Saya adalah lulusan Teknik Informatika yang berfokus pada pengembangan aplikasi web modern. Senang membangun solusi digital yang efisien, interaktif, dan mudah digunakan.",
   email: "faaviandilan04@gmail.com",
-  discordUsername: "FavianDT#1234", // Sesuai untuk fitur klik-untuk-salin
+  discordUsername: "FavianDT#123", // Sesuai untuk fitur klik-untuk-salin
   socials: {
     instagram: "https://instagram.com/username_anda",
     github: "https://github.com/username_anda",

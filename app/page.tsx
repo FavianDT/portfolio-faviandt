@@ -15,29 +15,33 @@ export default function Home() {
   const [isDeleting, setIsDeleting] = useState(false); // Status arah hapus ketikan
 
   // Efek Ketik Dinamis (Typing Effect) pada Bagian Hero
-  useEffect(() => {
-    let timer;
-    const currentFullText = PERSONAL_INFO.roles[currentRoleIndex];
-    
-    if (isDeleting) {
-      timer = setTimeout(() => {
-        setTypedText(currentFullText.substring(0, typedText.length - 1));
-      }, 50); // Kecepatan menghapus huruf
-    } else {
-      timer = setTimeout(() => {
-        setTypedText(currentFullText.substring(0, typedText.length + 1));
-      }, 100); // Kecepatan mengetik huruf
-    }
+  // Efek Ketik Dinamis (Typing Effect) pada Bagian Hero
+useEffect(() => {
+  let timer: NodeJS.Timeout;
+  const currentFullText = PERSONAL_INFO.roles[currentRoleIndex];
+  
+  if (isDeleting) {
+    timer = setTimeout(() => {
+      setTypedText(currentFullText.substring(0, typedText.length - 1));
+    }, 50); // Kecepatan menghapus huruf
+  } else {
+    timer = setTimeout(() => {
+      setTypedText(currentFullText.substring(0, typedText.length + 1));
+    }, 100); // Kecepatan mengetik huruf
+  }
 
-    if (!isDeleting && typedText === currentFullText) {
-      timer = setTimeout(() => setIsDeleting(true), 2000); // Jeda diam sebelum teks dihapus
-    } else if (isDeleting && typedText === "") {
+  if (!isDeleting && typedText === currentFullText) {
+    timer = setTimeout(() => setIsDeleting(true), 2000); // Jeda diam sebelum teks dihapus
+  } else if (isDeleting && typedText === "") {
+    // FIX: Dibungkus dengan setTimeout 0ms agar dieksekusi secara asinkron
+    timer = setTimeout(() => {
       setIsDeleting(false);
-      setCurrentRoleIndex((prev) => (prev + 1) % PERSONAL_INFO.roles.length); // Ganti ke kata berikutnya
-    }
+      setCurrentRoleIndex((prev) => (prev + 1) % PERSONAL_INFO.roles.length);
+    }, 0);
+  }
 
-    return () => clearTimeout(timer);
-  }, [typedText, isDeleting, currentRoleIndex]);
+  return () => clearTimeout(timer);
+}, [typedText, isDeleting, currentRoleIndex]);
 
   // Memantau Scroll Layar untuk Menampilkan Tombol Back to Top
   useEffect(() => {
@@ -53,11 +57,11 @@ export default function Home() {
   }, []);
 
   // Fungsi Klik-untuk-Salin ID Discord otomatis ke Clipboard
-  const copyDiscordToClipboard = (e) => {
-    e.preventDefault();
-    navigator.clipboard.writeText(PERSONAL_INFO.discordUsername);
-    setCopySuccess(true);
-    setTimeout(() => setCopySuccess(false), 2500); // Notifikasi toast hilang setelah 2.5 detik
+  const copyDiscordToClipboard = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+  e.preventDefault();
+  navigator.clipboard.writeText(PERSONAL_INFO.discordUsername);
+  setCopySuccess(true);
+  setTimeout(() => setCopySuccess(false), 2500); // Notifikasi toast hilang setelah 2.5 detik
   };
 
   // Memfilter Proyek Berdasarkan Kategori yang Aktif

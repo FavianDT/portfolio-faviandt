@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 // MENG-IMPORT DATA DARI FILE EKSTERNAL
 import { PERSONAL_INFO, INITIAL_PROJECTS } from "../data/projectsData";

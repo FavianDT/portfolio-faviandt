@@ -17,7 +17,7 @@ export default function Home() {
   // Efek Ketik Dinamis (Typing Effect) pada Bagian Hero
   // Efek Ketik Dinamis (Typing Effect) pada Bagian Hero
 useEffect(() => {
-  let timer: NodeJS.Timeout;
+  let timer: ReturnType<typeof setTimeout>;
   const currentFullText = PERSONAL_INFO.roles[currentRoleIndex];
   
   if (isDeleting) {
